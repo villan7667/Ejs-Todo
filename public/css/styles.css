@@ -1,0 +1,173 @@
+/* Background */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1b1f4a, #502864);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+}
+
+.todo-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 30px 25px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.todo-box h1 {
+  margin: 0 0 20px;
+  font-size: 26px;
+  color: #2f2f51;
+}
+
+/* Input Section */
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-section input {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 40px;
+  background: #eee;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-section button {
+  background: #ff5e3a;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.input-section button:hover {
+  background: #e04b2f;
+}
+
+/* Task Items */
+.item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  padding: 8px 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+}
+
+.item:hover {
+  background: #f8f8f8;
+}
+
+/* Custom circle checkbox */
+.item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ff6b35;
+  border-radius: 50%;
+  margin-right: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background-color: white;
+}
+
+/* White tick mark, hidden by default */
+.item input[type="checkbox"]::before {
+  content: "✔";
+  position: absolute;
+  top: 0;
+  left: 4px;
+  font-size: 16px;
+  color: white;
+  display: none;
+  user-select: none;
+}
+
+/* When checked, fill circle with orange */
+.item input[type="checkbox"]:checked {
+  background-color: #ff6b35;
+  border-color: #ff6b35;
+}
+
+/* Show tick mark on checked */
+.item input[type="checkbox"]:checked::before {
+  display: block;
+}
+
+/* Strike through and gray text on checked */
+.item input[type="checkbox"]:checked + label,
+.item input[type="checkbox"]:checked + p {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Label and paragraph styles */
+.item label,
+.item p {
+  margin: 0;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+  flex-grow: 1;
+}
+
+/* Delete button */
+.item .delete {
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  margin-left: 10px;
+  transition: color 0.2s;
+}
+
+.item .delete:hover {
+  color: #e04b2f;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .todo-box {
+    padding: 20px 15px;
+  }
+
+  .input-section input {
+    padding: 12px 15px;
+  }
+
+  .input-section button {
+    padding: 12px 20px;
+  }
+}
