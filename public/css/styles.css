@@ -1,44 +1,88 @@
-/* Background */
+/* villan @7667*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Background Animation */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1b1f4a, #502864);
+  background: linear-gradient(-45deg, #fe715c, #dc8870, #fbc2eb, #7157ad);
+  background-size: 400% 400%;
+  animation: bgAnimate 12s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
+
+@keyframes bgAnimate {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* Container */
 .container {
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   padding: 20px;
 }
 
 .todo-box {
   background: #fff;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 30px 25px;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-  animation: slideUp 0.5s ease-in-out;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.6s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-height: 85vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.box {
+  overflow-y: auto;
+  flex-grow: 1;
+  max-height: calc(85vh - 180px);
+  padding-right: 8px;
 }
 
 @keyframes slideUp {
   from {
-    transform: translateY(50px);
+    transform: translateY(60px);
     opacity: 0;
   }
+
   to {
-    transform: translateY(0px);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
 .todo-box h1 {
-  margin: 0 0 20px;
-  font-size: 26px;
+  font-size: 28px;
   color: #2f2f51;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.todo-box h1::before {
+  content: "📝";
+  font-size: 24px;
 }
 
 /* Input Section */
@@ -62,7 +106,7 @@ body {
   background: #ff5e3a;
   color: white;
   border: none;
-  padding: 14px 30px;
+  padding: 14px 28px;
   font-size: 16px;
   border-radius: 40px;
   cursor: pointer;
@@ -73,15 +117,30 @@ body {
   background: #e04b2f;
 }
 
-/* Task Items */
+
+.box {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 8px;
+}
+
+.box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.box::-webkit-scrollbar-thumb {
+  background-color: #ff5e3a;
+  border-radius: 10px;
+}
+
 .item {
   display: flex;
   align-items: center;
   margin: 12px 0;
-  padding: 8px 10px;
-  background-color: #fff;
+  padding: 10px 12px;
+  background-color: #fefefe;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease;
 }
 
@@ -89,22 +148,18 @@ body {
   background: #f8f8f8;
 }
 
-/* Custom circle checkbox */
 .item input[type="checkbox"] {
   appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border: 2px solid #ff6b35;
   border-radius: 50%;
   margin-right: 12px;
   position: relative;
   cursor: pointer;
-  transition: 0.3s ease;
   background-color: white;
 }
 
-/* White tick mark, hidden by default */
 .item input[type="checkbox"]::before {
   content: "✔";
   position: absolute;
@@ -113,62 +168,96 @@ body {
   font-size: 16px;
   color: white;
   display: none;
-  user-select: none;
 }
 
-/* When checked, fill circle with orange */
 .item input[type="checkbox"]:checked {
   background-color: #ff6b35;
   border-color: #ff6b35;
 }
 
-/* Show tick mark on checked */
 .item input[type="checkbox"]:checked::before {
   display: block;
 }
 
-/* Strike through and gray text on checked */
-.item input[type="checkbox"]:checked + label,
-.item input[type="checkbox"]:checked + p {
-  text-decoration: line-through;
-  color: gray;
-}
-
-/* Label and paragraph styles */
 .item label,
 .item p {
   margin: 0;
   font-size: 16px;
-  cursor: pointer;
   color: #333;
   flex-grow: 1;
+  cursor: pointer;
+  word-break: break-word;
 }
 
-/* Delete button */
+/* Checked text styling */
+.item input[type="checkbox"]:checked+label,
+.item input[type="checkbox"]:checked+p {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Delete Button */
 .delete {
   background: transparent;
   border: none;
-  color: red;
-  font-size: 1.5rem;
+  color: #ff5e3a;
+  font-size: 1.3rem;
   cursor: pointer;
-  padding: 0 10px;
+  transition: 0.3s;
 }
+
 .delete:hover {
-  color: #e04b2f;
+  color: #d84315;
 }
 
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 480px) {
+  .container {
+    width: auto;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
   .todo-box {
-    padding: 20px 15px;
+    padding: 18px 15px;
+    border-radius: 12px;
+    width: 100%;
+    max-height: 90vh;
   }
 
-  .input-section input {
-    padding: 12px 15px;
+  .todo-box h1 {
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.3;
   }
 
+  .input-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-section input,
   .input-section button {
-    padding: 12px 20px;
+    width: 100%;
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+
+  .box {
+    max-height: calc(90vh - 200px);
+    /* Adjusted for smaller screen */
+    padding-right: 4px;
+  }
+
+  .item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .delete {
+    font-size: 1.4rem;
+    padding: 0 5px;
   }
 }
