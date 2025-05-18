@@ -239,7 +239,7 @@ body {
 
   .input-section input,
   .input-section button {
-    width: 100%;
+    width: 90%;
     font-size: 15px;
     padding: 12px 14px;
   }
