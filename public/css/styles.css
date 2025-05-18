@@ -145,17 +145,18 @@ body {
 }
 
 /* Delete button */
-.item .delete {
-  font-size: 20px;
+.delete {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #888;
-  margin-left: 10px;
-  transition: color 0.2s;
+  padding: 0 10px;
 }
-
-.item .delete:hover {
+.delete:hover {
   color: #e04b2f;
 }
+
 
 /* Responsive */
 @media (max-width: 480px) {

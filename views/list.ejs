@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo List</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
   <div class="container">
     <div class="todo-box">
       <h1>To-Do List 📝</h1>
-      
+
       <form action="/" method="POST" class="input-section">
         <input type="text" name="newItem" placeholder="Add your task" required>
         <button type="submit">Add</button>
       </form>
 
       <div class="box">
-        <% for (let i = 0; i < ejes.length; i++) { %>
+        <% for (let i=0; i < ejes.length; i++) { %>
           <div class="item">
             <label class="checkbox-container">
               <input type="checkbox" id="task-<%= i %>">
               <span class="checkmark"></span>
             </label>
-            <p><label for="task-<%= i %>"><%= ejes[i] %></label></p>
-            <span class="delete">×</span>
+            <p><label for="task-<%= i %>">
+                <%= ejes[i] %>
+              </label></p>
+
+            <form action="/delete" method="POST" style="display: inline;">
+              <input type="hidden" name="index" value="<%= i %>">
+              <button type="submit" class="delete" title="Delete task">×</button>
+            </form>
           </div>
-        <% } %>
+          <% } %>
       </div>
 
     </div>
   </div>
 </body>
+
 </html>

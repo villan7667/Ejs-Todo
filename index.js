@@ -6,7 +6,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public")); 
+app.use(express.static("public"));
 
 let items = [];
 
@@ -22,6 +22,14 @@ app.post("/", function (req, res) {
   res.redirect("/");
 });
 
-app.listen(8000, function () {
-  console.log("Server is running on port 8000");
+app.post("/delete", function (req, res) {
+  const index = parseInt(req.body.index);
+  if (!isNaN(index) && index >= 0 && index < items.length) {
+    items.splice(index, 1);
+  }
+  res.redirect("/");
+});
+
+app.listen(port, function () {
+  console.log("Server is running on port", port);
 });
