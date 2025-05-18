@@ -20,7 +20,17 @@ app.post("/", function (req, res) {
     items.push(item.trim());
   }
   res.redirect("/");
+  
+});app.post("/edit", function (req, res) {
+  const index = parseInt(req.body.index);
+  const updatedText = req.body.updatedText;
+  if (!isNaN(index) && updatedText && updatedText.trim()) {
+    items[index] = updatedText.trim();
+  }
+  res.redirect("/");
 });
+
+
 
 app.post("/delete", function (req, res) {
   const index = parseInt(req.body.index);

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Todo List</title>
+  <title>To-Do List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon" href="/public/css/hsgf.png" type="image/png">
+  <link rel="icon" href="/css/hsgf.png" type="image/png">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -15,32 +14,72 @@
     <div class="todo-box">
       <h1>To-Do List 📝</h1>
 
+      <!-- Add Task Form -->
       <form action="/" method="POST" class="input-section">
         <input type="text" name="newItem" placeholder="Add your task" required>
         <button type="submit">Add</button>
       </form>
 
+      <!-- Task List Box -->
       <div class="box">
-        <% for (let i=0; i < ejes.length; i++) { %>
+        <% for (let i = 0; i < ejes.length; i++) { %>
           <div class="item">
-            <label class="checkbox-container">
-              <input type="checkbox" id="task-<%= i %>">
-              <span class="checkmark"></span>
-            </label>
-            <p><label for="task-<%= i %>">
-                <%= ejes[i] %>
-              </label></p>
-
-            <form action="/delete" method="POST" style="display: inline;">
+            <input type="checkbox" id="task-<%= i %>">
+            <label for="task-<%= i %>" class="task-label"><%= ejes[i] %></label>
+            <!--  Edit Button -->
+            <button type="button" class="edit-btn" data-index="<%= i %>">
+              <i class="fas fa-edit"></i>
+            </button>
+            <!-- Delete Button -->
+            <form action="/delete" method="POST" style="margin-left: 5px;">
               <input type="hidden" name="index" value="<%= i %>">
-              <button type="submit" class="delete" title="Delete task">×</button>
+              <button type="submit" class="delete"><i class="fas fa-trash-alt"></i></button>
             </form>
           </div>
-          <% } %>
+        <% } %>
       </div>
 
     </div>
   </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editButtons = document.querySelectorAll(".edit-btn");
 
+    editButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const index = btn.getAttribute("data-index");
+        const label = btn.parentElement.querySelector(".task-label");
+        const currentText = label.textContent;
+
+        // Replace label with input
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = currentText;
+        input.className = "edit-input";
+
+        // Replace label with input field
+        label.replaceWith(input);
+        input.focus();
+
+        // When user presses Enter
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const form = document.createElement("form");
+            form.action = "/edit";
+            form.method = "POST";
+
+            form.innerHTML = `
+              <input type="hidden" name="index" value="${index}">
+              <input type="hidden" name="updatedText" value="${input.value}">
+            `;
+
+            document.body.appendChild(form);
+            form.submit();
+          }
+        });
+      });
+    });
+  });
+</script>
 </html>
