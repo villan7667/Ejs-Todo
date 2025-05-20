@@ -1,6 +1,9 @@
 # 📝 To-Do List App (EJS + Node.js)
 
 A simple yet stylish **To-Do List Web App** built with **Node.js**, **Express**, and **EJS templating**. It allows users to add and delete tasks efficiently with a clean UI.
+## 🌐 Live Demo
+
+👉 [Click here to live app](https://ejs-todo-nh7b.onrender.com/)
 
 ![image](https://github.com/user-attachments/assets/290ab0d4-a116-439d-a8ec-a87ee66541c6)
 
