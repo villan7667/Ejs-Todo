@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- villan@7667 -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,74 +13,155 @@
 <body>
   <div class="container">
     <div class="todo-box">
-      <h1>To-Do List 📝</h1>
+      <h1><i class="fas fa-clipboard-list"></i> To-Do List</h1>
 
       <!-- Add Task Form -->
-      <form action="/" method="POST" class="input-section">
-        <input type="text" name="newItem" placeholder="Add your task" required>
-        <button type="submit">Add</button>
+      <form action="/" method="POST" class="input-section" id="add-form">
+        <input type="text" name="newItem" id="new-task" placeholder="Add your task" required autocomplete="off">
+        <button type="submit" class="add-btn">
+          <i class="fas fa-plus"></i> Add Task
+        </button>
       </form>
 
       <!-- Task List Box -->
       <div class="box">
-        <% for (let i = 0; i < ejes.length; i++) { %>
-          <div class="item">
-            <input type="checkbox" id="task-<%= i %>">
-            <label for="task-<%= i %>" class="task-label"><%= ejes[i] %></label>
-            <!--  Edit Button -->
-            <button type="button" class="edit-btn" data-index="<%= i %>">
-              <i class="fas fa-edit"></i>
-            </button>
-            <!-- Delete Button -->
-            <form action="/delete" method="POST" style="margin-left: 5px;">
-              <input type="hidden" name="index" value="<%= i %>">
-              <button type="submit" class="delete"><i class="fas fa-trash-alt"></i></button>
-            </form>
+        <% if (ejes.length===0) { %>
+          <div class="empty-state">
+            <i class="fas fa-clipboard-check"></i>
+            <p>Your to-do list is empty. Add some tasks!</p>
           </div>
-        <% } %>
-      </div>
+          <% } else { %>
+            <% for (let i=0; i < ejes.length; i++) { %>
+              <div class="item" id="item-<%= i %>">
+                <div class="item-main">
+                  <input type="checkbox" id="task-<%= i %>" class="task-checkbox">
+                  <label for="task-<%= i %>" class="task-label">
+                    <%= ejes[i] %>
+                  </label>
 
+                  <div class="item-actions">
+                    <!-- Edit Button -->
+                    <button type="button" class="edit-btn" data-index="<%= i %>" aria-label="Edit task">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <!-- Delete Button -->
+                    <form action="/delete" method="POST" class="delete-form">
+                      <input type="hidden" name="index" value="<%= i %>">
+                      <button type="submit" class="delete" aria-label="Delete task">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Update Form -->
+                <form action="/edit" method="POST" class="update-form" data-index="<%= i %>">
+                  <input type="hidden" name="index" value="<%= i %>">
+                  <input type="text" name="updatedText" class="update-input" required value="<%= ejes[i] %>">
+                  <div class="update-actions">
+                    <button type="submit" class="update-btn">
+                      <i class="fas fa-check"></i> Update
+                    </button>
+                    <button type="button" class="cancel-btn">
+                      <i class="fas fa-times"></i> Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <% } %>
+                <% } %>
+      </div>
+      <!-- Task Counter -->
+      <div class="task-counter">
+        <p><span id="task-count">
+            <%= ejes.length %>
+          </span> task<span id="task-plural">
+            <%= ejes.length !==1 ? 's' : '' %>
+          </span> remaining</p>
+      </div>
     </div>
   </div>
-</body>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const editButtons = document.querySelectorAll(".edit-btn");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-    editButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const index = btn.getAttribute("data-index");
-        const label = btn.parentElement.querySelector(".task-label");
-        const currentText = label.textContent;
+      const editButtons = document.querySelectorAll(".edit-btn");
+      const cancelButtons = document.querySelectorAll(".cancel-btn");
 
-        // Replace label with input
-        const input = document.createElement("input");
-        input.type = "text";
-        input.value = currentText;
-        input.className = "edit-input";
+      editButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = btn.getAttribute("data-index");
+          const item = document.getElementById(`item-${index}`);
 
-        // Replace label with input field
-        label.replaceWith(input);
-        input.focus();
-
-        // When user presses Enter
-        input.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            const form = document.createElement("form");
-            form.action = "/edit";
-            form.method = "POST";
-
-            form.innerHTML = `
-              <input type="hidden" name="index" value="${index}">
-              <input type="hidden" name="updatedText" value="${input.value}">
-            `;
-
-            document.body.appendChild(form);
-            form.submit();
-          }
+          item.classList.add("editing");
+          const updateInput = item.querySelector(".update-input");
+          updateInput.focus();
+          updateInput.select();
         });
       });
+
+
+      cancelButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".item");
+          item.classList.remove("editing");
+        });
+      });
+
+
+      const checkboxes = document.querySelectorAll(".task-checkbox");
+      const taskCountElement = document.getElementById("task-count");
+      const taskPluralElement = document.getElementById("task-plural");
+
+      // Update task counter
+      function updateTaskCounter() {
+        const totalTasks = checkboxes.length;
+        const completedTasks = document.querySelectorAll(".task-checkbox:checked").length;
+        const remainingTasks = totalTasks - completedTasks;
+
+        taskCountElement.textContent = remainingTasks;
+        taskPluralElement.textContent = remainingTasks !== 1 ? 's' : '';
+      }
+
+
+      updateTaskCounter();
+
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+          const label = this.nextElementSibling;
+
+          if (this.checked) {
+            label.classList.add("completed");
+
+            this.parentElement.parentElement.classList.add("task-completed");
+
+
+            setTimeout(() => {
+              const box = document.querySelector(".box");
+              box.appendChild(this.parentElement.parentElement);
+            }, 500);
+          } else {
+            label.classList.remove("completed");
+            this.parentElement.parentElement.classList.remove("task-completed");
+          }
+
+
+          updateTaskCounter();
+        });
+      });
+
+      // Add task animation
+      const addForm = document.getElementById("add-form");
+      addForm.addEventListener("submit", function () {
+        const input = document.getElementById("new-task");
+        if (input.value.trim()) {
+
+          setTimeout(() => {
+            input.value = "";
+          }, 100);
+        }
+      });
     });
-  });
-</script>
+  </script>
+</body>
+<!-- villa@7667 -->
+
 </html>
