@@ -1,49 +1,65 @@
-# 📝 To-Do List App (EJS + Node.js)
+<!-- ©️ villan@7667 -->
 
-A simple yet stylish **To-Do List Web App** built with **Node.js**, **Express**, and **EJS templating**. It allows users to add and delete tasks efficiently with a clean UI.
-## 🌐 Live Demo
+# ✅ Task Master — Modern Todo List Application
 
-👉 [Click here to live app](https://ejs-todo-nh7b.onrender.com/)
+A beautiful, feature-rich Todo List web app built with **Node.js**, **Express.js**, **EJS**, and **MongoDB Atlas**. Organize your tasks with priority levels, edit and delete in real-time, and enjoy a polished, animated UI experience.
 
-![image](https://github.com/user-attachments/assets/290ab0d4-a116-439d-a8ec-a87ee66541c6)
-
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with-Node.js-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Deploy-Render-blue?style=for-the-badge" />
+</p>
 
 ---
 
-## 🚀 Features
+## 🌟 Features
 
-- ✅ Add new tasks instantly
-- ✅ Delete tasks with a single click
-- ✅ Real-time updates using server rendering
-- ✅ Responsive, modern UI with checkboxes and button effects
-- ✅ Easy to use and understand codebase
+- ✍️ **Add, Edit, Delete Tasks** easily with live UI updates
+- 🚦 **Priority Tags:** Urgent 🔴 | High 🟠 | Low 🟢
+- 📋 **Completed Tasks Tracker**
+- 🧠 **Optimistic UI + AJAX Toggle** for checkbox status
+- 🔔 **Auto-dismissing Alert Messages**
+- ✅ **Form Validation** to prevent empty tasks
+- 🎨 **Responsive and Clean UI** with CSS3 and animation
+- ☁️ **MongoDB Atlas Integration** for cloud-based persistence
+- 🔐 **Secure Routing** with POST-Redirect-GET pattern
+- 🚀 **Deployed on Render** — ready to use instantly!
+
+---
+
+## 🔗 Live Demo
+
+<div align="center">
+  <a href="https://db-todo-9x4n.onrender.com/" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/%F0%9F%9F%A2%20Live%20Now%20-%20Click%20to%20Open-6366f1?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  </a>
+</div>
+
+---
+
+## 📸 Preview Screenshot
+
+![Todo List Screenshot](https://github.com/user-attachments/assets/8ae3682f-32d9-4cbd-8c19-2eac81af6ad0)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Technology | Description                     |
-|------------|---------------------------------|
-| Node.js    | JavaScript runtime environment  |
-| Express.js | Backend web framework           |
-| EJS        | Embedded JavaScript templating  |
-| CSS        | Styling and responsive layout   |
-| HTML       | Markup for structure            |
+| Category    | Tech Used                        |
+|-------------|----------------------------------|
+| 🧠 Backend   | Node.js, Express.js              |
+| 🎨 Frontend  | EJS, Vanilla JavaScript, CSS3    |
+| 📦 Database  | MongoDB Atlas (Mongoose ORM)     |
+| 🚀 Hosting   | [Render](https://render.com)     |
+| 📁 Templating | EJS + Dynamic rendering         |
 
 ---
 
-## 📁 Project Structure
+## 🚀 Installation & Setup
+
+Clone the repository and install dependencies:
 
 ```bash
-todo-app/
-│
-├── public/
-│   └── css/
-│       └── styles.css       # All styles here
-│
-├── views/
-│   └── list.ejs             # Main EJS frontend
-│
-├── index.js                 # Entry point (server)
-├── package.json
-└── README.md
+git clone https://github.com/yourusername/todo-list-app.git
+cd todo-list-app
+npm install
